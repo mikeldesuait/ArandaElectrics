@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 120" role="img" aria-labelledby="lt3 ld3">
+  <title id="lt3">Aranda Electrics</title>
+  <desc id="ld3">Yellow monogram AE for accents and highlights.</desc>
+  <g fill="#FFC107">
+    <g transform="translate(20 8)">
+      <path d="M 20 60 L 34 10 L 44 10 L 58 60 L 46 60 L 40 36 L 24 36 Z"/>
+      <path d="M 30 46 L 40 20 L 38 34 L 46 34 L 34 62 Z" fill="#1A1A1A"/>
+      <path d="M 66 10 L 108 10 L 100 20 L 78 20 L 80 30 L 104 30 L 96 40 L 78 40 L 80 50 L 108 50 L 128 50 L 118 60 L 66 60 Z"/>
+    </g>
+    <text x="120" y="92"
+          font-family="system-ui,Segoe UI,Arial,sans-serif" font-weight="800" font-size="22"
+          text-anchor="middle" letter-spacing="6">ΛRΛNDΛ</text>
+    <path d="M 40 108 L 46 108 L 43 102 Z"/>
+    <path d="M 194 108 L 200 108 L 197 102 Z"/>
+    <text x="120" y="114"
+          font-family="system-ui,Segoe UI,Arial,sans-serif" font-weight="600" font-size="10"
+          text-anchor="middle" letter-spacing="7">ELECTRICS</text>
+  </g>
+</svg>

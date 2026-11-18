@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact — Aranda Electrics</title>
+  <meta name="description" content="Contact Aranda Electrics in Orihuela Costa. WhatsApp, phone or send us a message for a free electrical quote.">
+  <meta name="theme-color" content="#1A1A1A">
+  <link rel="canonical" href="https://arandaelectrics.com/pages/contact.html">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a class="logo" href="../index.html" aria-label="Aranda Electrics — home">
+        <img class="logo-img" src="../assets/img/logo-header.png" alt="Aranda Electrics" width="120" height="91" decoding="async">
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
+        <span class="menu-bar"></span><span class="menu-bar"></span><span class="menu-bar"></span>
+      </button>
+      <nav id="primary-nav" class="primary-nav" aria-label="Primary">
+        <ul role="list">
+          <li><a href="../index.html#services" data-i18n="nav.services">Services</a></li>
+          <li><a href="../index.html#areas" data-i18n="nav.areas">Areas</a></li>
+          <li><a href="../index.html#process" data-i18n="nav.process">How we work</a></li>
+          <li><a href="../index.html#reviews" data-i18n="nav.reviews">Reviews</a></li>
+          <li><a href="contact.html" class="btn btn-outline" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" data-lang="en" class="is-active" aria-pressed="true">EN</button>
+          <button type="button" data-lang="es" aria-pressed="false">ES</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <main id="main" role="main">
+    <section class="section" aria-labelledby="contact-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow" data-i18n="contact.eyebrow">Get in touch</p>
+          <h1 id="contact-title" data-i18n="contact.title">Let's talk about your electrical job</h1>
+          <p data-i18n="contact.lead">WhatsApp is usually fastest. If you prefer, send us a message below — we reply the same day.</p>
+        </header>
+        <div class="contact-layout">
+          <!-- BLOQUE RÁPIDO: WhatsApp / Teléfono -->
+          <aside class="contact-quick" aria-label="Quick contact">
+            <h2 data-i18n="contact.quick.title">Quick contact</h2>
+            <a class="btn btn-whatsapp contact-big-btn"
+               href="https://wa.me/34622099576?text=Hi%20Aranda%20Electrics%2C%20I%27d%20like%20a%20quote"
+               target="_blank" rel="noopener"
+               data-i18n="contact.quick.whatsapp">Chat on WhatsApp</a>
+            <a class="btn btn-outline contact-big-btn"
+               href="tel:+34600000000"
+               data-i18n="contact.quick.call">Call us</a>
+            <p class="contact-note" data-i18n="contact.quick.hours">Mon–Sat · 8:00 – 20:00 · 24/7 emergencies</p>
+          </aside>
+          <!-- FORMULARIO -->
+          <form class="contact-form" id="contact-form" action="mailto:hello@arandaelectrics.com" method="post" enctype="text/plain" novalidate>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="name" data-i18n="form.name">Your name</label>
+                <input id="name" name="name" type="text" required autocomplete="name"
+                       data-i18n-attr="placeholder:form.name.ph">
+              </div>
+              <div class="form-field">
+                <label for="email" data-i18n="form.email">Email</label>
+                <input id="email" name="email" type="email" required autocomplete="email"
+                       inputmode="email"
+                       data-i18n-attr="placeholder:form.email.ph">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="phone" data-i18n="form.phone">Phone (optional)</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel"
+                       inputmode="tel"
+                       data-i18n-attr="placeholder:form.phone.ph">
+              </div>
+              <div class="form-field">
+                <label for="area" data-i18n="form.area">Area</label>
+                <select id="area" name="area" required>
+                  <option value="" data-i18n="form.area.choose">Choose your area…</option>
+                  <option value="la-zenia">La Zenia</option>
+                  <option value="cabo-roig">Cabo Roig</option>
+                  <option value="playa-flamenca">Playa Flamenca</option>
+                  <option value="punta-prima">Punta Prima</option>
+                  <option value="villamartin">Villamartín</option>
+                  <option value="campoamor">Campoamor / Dehesa</option>
+                  <option value="other" data-i18n="form.area.other">Other / not sure</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="service" data-i18n="form.service">What do you need?</label>
+              <select id="service" name="service" required>
+                <option value="" data-i18n="form.service.choose">Choose a service…</option>
+                <option value="fuse-box" data-i18n="services.1.title">Fuse box replacement</option>
+                <option value="safety-check" data-i18n="services.2.title">Safety check &amp; report</option>
+                <option value="monitoring" data-i18n="services.3.title">Second-home monitoring</option>
+                <option value="ev-charger" data-i18n="services.4.title">EV charger installation</option>
+                <option value="uk-sockets" data-i18n="services.5.title">UK-style sockets</option>
+                <option value="emergency" data-i18n="services.6.title">24/7 emergency</option>
+                <option value="other" data-i18n="form.service.other">Other / not sure</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="message" data-i18n="form.message">Message</label>
+              <textarea id="message" name="message" rows="5" required
+                        aria-describedby="message-hint"
+                        data-i18n-attr="placeholder:form.message.ph"></textarea>
+              <small id="message-hint" class="form-hint" data-i18n="form.message.hint">A photo helps — you can WhatsApp it after we reply.</small>
+            </div>
+            <!-- HONEYPOT (anti-spam, invisible para humanos) -->
+            <div class="visually-hidden" aria-hidden="true">
+              <label for="website">Do not fill</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+            </div>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+            <button class="btn btn-primary form-submit" type="submit" data-i18n="form.submit">Send message</button>
+            <p class="form-legal" data-i18n="form.legal">
+              By sending, you agree we may contact you about your enquiry. We don't share your data.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+        <img class="footer-logo" src="../assets/img/logo-footer.png" alt="Aranda Electrics" width="168" height="127" loading="lazy" decoding="async">
+      <p>&copy; <span id="year"></span> Aranda Electrics</p>
+      <p data-i18n="footer.legal">Orihuela Costa · Comunitat Valenciana · Spain</p>
+      <p class="footer-legal">
+        <a href="legal.html">Aviso legal</a> ·
+        <a href="privacy.html">Privacidad</a> ·
+        <a href="cookies.html">Cookies</a>
+      </p>
+    </div>
+  </footer>
+  <a class="wa-float" href="https://wa.me/34622099576?text=Hi%20Aranda%20Electrics" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path fill="currentColor" d="M20.5 3.5A11.9 11.9 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.7 6L0 24l6.3-1.7c1.7 1 3.7 1.5 5.7 1.5h.1c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.3-6.2-3.5-8.4zM12 21.8c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 0 1-1.5-5.3c0-5.4 4.4-9.8 9.9-9.8 2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 7c0 5.4-4.4 9.8-9.8 9.8zm5.4-7.3c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2s-.8 1-1 1.2c-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.5-.5.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .2.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
+  </a>
+  <script src="../js/i18n.js" defer></script>
+  <script src="../js/main.js" defer></script>
+  <script src="../js/contact.js" defer></script>
+</body>
+</html>
