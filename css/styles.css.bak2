@@ -1,0 +1,713 @@
+/* ========================================================
+   Aranda Electrics — styles.css
+   Mobile-first. Variables de color. Sin frameworks.
+   ======================================================== */
+/* ---------- RESET + TOKENS ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+:root {
+  /* Marca (acento metálico sobre carbón) */
+  --brand-yellow: #C0C0C0;
+  --brand-yellow-dark: #8C8C8C;
+  --brand-carbon: #0F0F0F;
+  --brand-carbon-2: #1A1A1A;
+  /* Neutros (tema gris oscuro) */
+  --c-bg: #141414;
+  --c-bg-alt: #1C1C1C;
+  --c-surface: #232323;
+  --c-surface-2: #2A2A2A;
+  --c-text: #F0F0F0;
+  --c-text-muted: #A8A8A8;
+  --c-border: #333333;
+  --c-ink: #0E0E0E;
+  /* Funcionales */
+  --c-whatsapp: #25D366;
+  --c-whatsapp-dark: #1EBE57;
+  --c-error: #FF6B6B;
+  /* Tipografía */
+  --font-base: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fs-h1: clamp(1.75rem, 1.2rem + 2.4vw, 2.75rem);
+  --fs-h2: clamp(1.5rem, 1.1rem + 1.6vw, 2.125rem);
+  --fs-h3: clamp(1.125rem, 1rem + 0.65vw, 1.375rem);
+  --fs-body: 1rem;
+  --fs-lead: clamp(1.05rem, 1rem + 0.35vw, 1.2rem);
+  --lh: 1.6;
+  /* Espaciados */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 4rem;
+  /* Layout */
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.4), 0 2px 4px rgba(0,0,0,.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.5);
+  --maxw: 1120px;
+  /* Foco accesible (gris metálico) */
+  --focus-ring: 0 0 0 3px rgba(192,192,192,.55);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-base);
+  font-size: var(--fs-body);
+  line-height: var(--lh);
+  color: var(--c-text);
+  background: var(--c-bg);
+  -webkit-font-smoothing: antialiased;
+}
+img, svg { display: block; max-width: 100%; height: auto; }
+h1, h2, h3 { line-height: 1.2; letter-spacing: -0.01em; }
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; }
+ul[role="list"], ol[role="list"] { list-style: none; padding: 0; }
+/* ---------- ACCESIBILIDAD ---------- */
+.skip-link {
+  position: absolute; left: -999px; top: 0;
+  background: var(--brand-carbon); color: var(--c-text);
+  padding: .75rem 1rem; z-index: 100;
+  border-radius: 0 0 var(--radius-sm) 0;
+}
+.skip-link:focus { left: 0; }
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-sm);
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* ---------- LAYOUT ---------- */
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  padding: 0 var(--space-2);
+  margin: 0 auto;
+}
+.section { padding: var(--space-5) 0; }
+.section-alt { background: var(--c-bg-alt); }
+.section-head { margin-bottom: var(--space-4); }
+.section-head h2 { margin-bottom: var(--space-1); }
+.section-head p { color: var(--c-text-muted); max-width: 60ch; }
+/* ---------- HEADER ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--c-surface);
+  border-bottom: 1px solid var(--c-border);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-2);
+  min-height: 64px;
+}
+.logo {
+  display: inline-flex; align-items: center; gap: .5rem;
+  color: var(--c-text); text-decoration: none;
+}
+.logo-text { font-size: 1.05rem; letter-spacing: -0.01em; }
+.logo-text strong { font-weight: 700; }
+.logo:hover { text-decoration: none; }
+.menu-toggle {
+  display: inline-flex; flex-direction: column; justify-content: center; gap: 4px;
+  width: 44px; height: 44px;
+  background: transparent; border: 1px solid transparent; border-radius: var(--radius-sm);
+  color: var(--c-text); cursor: pointer; padding: 0 10px;
+}
+.menu-bar { display: block; height: 2px; background: var(--c-text); border-radius: 1px; }
+.menu-toggle[aria-expanded="true"] .menu-bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .menu-bar:nth-child(2) { opacity: 0; }
+.menu-toggle[aria-expanded="true"] .menu-bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.primary-nav {
+  display: none;
+  flex-direction: column; gap: var(--space-2);
+  padding: var(--space-2) 0;
+  border-top: 1px solid var(--c-border);
+}
+.primary-nav.is-open { display: flex; }
+.primary-nav ul { display: flex; flex-direction: column; gap: var(--space-1); }
+.primary-nav a { padding: .6rem .25rem; display: block; }
+.lang-switch {
+  display: inline-flex; gap: .25rem; padding: .25rem;
+  background: var(--c-bg-alt); border-radius: var(--radius-sm); align-self: flex-start;
+}
+.lang-switch button {
+  min-width: 44px; min-height: 36px; padding: 0 .5rem;
+  border: none; background: transparent; font-weight: 600; cursor: pointer;
+  border-radius: 4px; color: var(--c-text-muted);
+}
+.lang-switch button[aria-pressed="true"] {
+  background: var(--brand-carbon); color: var(--brand-yellow);
+}
+@media (min-width: 960px) {
+  .menu-toggle { display: none; }
+  .primary-nav {
+    display: flex !important; flex-direction: row; align-items: center;
+    border-top: 0; padding: 0;
+  }
+  .primary-nav ul { flex-direction: row; gap: var(--space-3); align-items: center; }
+  .primary-nav a { padding: .5rem 0; }
+}
+/* ---------- HERO ---------- */
+.hero {
+  background:
+    linear-gradient(180deg, rgba(26,26,26,.92), rgba(26,26,26,.78)),
+    radial-gradient(circle at 80% 20%, rgba(255,193,7,.15), transparent 60%),
+    var(--brand-carbon);
+  color: var(--c-text);
+  padding: var(--space-5) 0 var(--space-5);
+}
+.eyebrow {
+  display: inline-block;
+  font-size: .85rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--brand-yellow);
+  margin-bottom: var(--space-1);
+}
+.hero h1 { max-width: 22ch; margin-bottom: var(--space-2); }
+.lead {
+  font-size: var(--fs-lead);
+  color: #E5E5E5;
+  max-width: 60ch;
+  margin-bottom: var(--space-3);
+}
+.lead strong { color: var(--brand-yellow); }
+.hero-cta {
+  display: flex; flex-wrap: wrap; gap: var(--space-1);
+  margin-bottom: var(--space-3);
+}
+.certs {
+  display: grid; gap: var(--space-1);
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(255,255,255,.15);
+}
+.cert {
+  display: flex; align-items: center; gap: .5rem;
+  color: #E5E5E5; font-size: .95rem;
+}
+.cert-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--brand-yellow); color: var(--brand-carbon);
+  font-size: .85rem; font-weight: 700; flex: 0 0 24px;
+}
+@media (min-width: 640px) {
+  .certs { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 960px) {
+  .hero { padding: var(--space-6) 0; }
+}
+/* ---------- BOTONES ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: .8rem 1.25rem;
+  border-radius: var(--radius);
+  font-weight: 700; font-size: 1rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform .12s ease, background .12s ease, color .12s ease;
+  text-decoration: none;
+}
+.btn:hover { text-decoration: none; transform: translateY(-1px); }
+.btn-primary {
+  background: var(--brand-yellow);
+  color: var(--brand-carbon);
+}
+.btn-primary:hover { background: var(--brand-yellow-dark); }
+.btn-whatsapp {
+  background: var(--c-whatsapp);
+  color: var(--c-text);
+}
+.btn-whatsapp:hover { background: var(--c-whatsapp-dark); }
+.btn-outline {
+  background: transparent; color: var(--c-text);
+  border-color: var(--c-border);
+}
+.btn-outline:hover { border-color: var(--c-text); }
+/* ---------- CARDS (Servicios) ---------- */
+.grid { display: grid; gap: var(--space-2); }
+.grid-3 { grid-template-columns: 1fr; }
+@media (min-width: 640px) { .grid-3 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 960px) { .grid-3 { grid-template-columns: repeat(3, 1fr); } }
+.card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .15s ease, transform .15s ease;
+}
+.card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.card h3 { margin-bottom: var(--space-1); }
+.card p { color: var(--c-text-muted); font-size: .97rem; }
+.card h3::before {
+  content: ""; display: inline-block;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--brand-yellow);
+  margin-right: .5rem; vertical-align: middle;
+}
+/* ---------- CHIPS (Áreas) ---------- */
+.area-chips {
+  display: flex; flex-wrap: wrap; gap: var(--space-1);
+}
+.chip {
+  display: inline-block; padding: .55rem 1rem;
+  background: var(--c-surface); border: 1px solid var(--c-border);
+  border-radius: 999px; font-size: .95rem; font-weight: 600;
+  color: var(--c-text);
+}
+/* ---------- STEPS (Proceso) ---------- */
+.steps {
+  display: grid; gap: var(--space-2);
+  list-style: none; padding: 0;
+  counter-reset: step;
+}
+.steps li {
+  position: relative;
+  background: var(--c-surface); border: 1px solid var(--c-border);
+  border-radius: var(--radius); padding: var(--space-3);
+  box-shadow: var(--shadow-sm);
+}
+.step-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--brand-carbon); color: var(--brand-yellow);
+  font-weight: 700; margin-bottom: var(--space-1);
+}
+.steps h3 { margin: .25rem 0 var(--space-1); }
+.steps p { color: var(--c-text-muted); }
+@media (min-width: 960px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+/* ---------- TESTIMONIOS ---------- */
+.testimonial {
+  background: var(--c-surface); border: 1px solid var(--c-border);
+  border-radius: var(--radius); padding: var(--space-3);
+  box-shadow: var(--shadow-sm);
+}
+.testimonial blockquote {
+  font-size: 1.02rem; color: var(--c-text);
+  margin: 0 0 var(--space-2);
+  padding-left: var(--space-2);
+  border-left: 4px solid var(--brand-yellow);
+}
+.testimonial cite {
+  font-style: normal; font-weight: 600; color: var(--c-text-muted); font-size: .92rem;
+}
+/* ---------- CTA BAND ---------- */
+.cta-band {
+  background: var(--brand-carbon); color: var(--c-text);
+  text-align: center;
+}
+.cta-band h2 { color: var(--brand-yellow); margin-bottom: var(--space-1); }
+.cta-band p { color: #E5E5E5; margin-bottom: var(--space-3); }
+/* ---------- FOOTER ---------- */
+.site-footer {
+  background: #111; color: #CCC;
+  padding: var(--space-3) 0;
+  font-size: .9rem;
+}
+.footer-inner {
+  display: flex; flex-wrap: wrap; gap: var(--space-1);
+  align-items: center; justify-content: space-between;
+}
+/* ---------- WHATSAPP FLOTANTE ---------- */
+.wa-float {
+  position: fixed; right: 1rem; bottom: 1rem; z-index: 60;
+  width: 60px; height: 60px; border-radius: 50%;
+  background: var(--c-whatsapp); color: var(--c-text);
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 20px rgba(37,211,102,.35), 0 2px 6px rgba(0,0,0,.2);
+  transition: transform .15s ease, background .15s ease;
+}
+.wa-float:hover { transform: scale(1.06); background: var(--c-whatsapp-dark); text-decoration: none; }
+.wa-float:focus-visible { box-shadow: 0 0 0 4px rgba(37,211,102,.5); }
+/* ---------- UTILIDADES ---------- */
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+/* ========================================================
+   CONTACTO — formulario + layout
+   ======================================================== */
+.contact-layout {
+  display: grid;
+  gap: var(--space-3);
+  align-items: start;
+}
+@media (min-width: 960px) {
+  .contact-layout {
+    grid-template-columns: 1fr 380px;
+  }
+  /* Form a la izq, quick-contact a la derecha */
+  .contact-form { grid-column: 1; }
+  .contact-quick { grid-column: 2; grid-row: 1; }
+}
+/* --- Bloque rápido (WhatsApp / llamar) --- */
+.contact-quick {
+  background: var(--c-bg-alt);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.contact-quick h2 { font-size: 1.15rem; margin-bottom: var(--space-1); }
+.contact-big-btn { width: 100%; min-height: 52px; }
+.contact-note {
+  margin-top: var(--space-1);
+  font-size: .9rem;
+  color: var(--c-text-muted);
+  text-align: center;
+}
+/* --- Formulario --- */
+.contact-form {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.form-row {
+  display: grid;
+  gap: var(--space-2);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+  .form-row { grid-template-columns: 1fr 1fr; }
+}
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+}
+.form-field label {
+  font-weight: 600;
+  font-size: .95rem;
+  color: var(--c-text);
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: .7rem .85rem;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-size: 1rem;
+  color: var(--c-text);
+  background: var(--c-surface);
+  transition: border-color .12s ease, box-shadow .12s ease;
+}
+.form-field textarea { min-height: 120px; resize: vertical; }
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--brand-carbon);
+  box-shadow: var(--focus-ring);
+}
+/* Estado inválido */
+.form-field input.is-invalid,
+.form-field select.is-invalid,
+.form-field textarea.is-invalid {
+  border-color: var(--c-error);
+  background: #2A1A1A;
+}
+.form-field input.is-invalid:focus,
+.form-field select.is-invalid:focus,
+.form-field textarea.is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(198,40,40,.35);
+}
+.form-error {
+  color: var(--c-error);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.form-hint {
+  color: var(--c-text-muted);
+  font-size: .85rem;
+}
+/* Status + submit */
+.form-status {
+  min-height: 1.2em;
+  font-size: .95rem;
+  color: var(--c-text);
+}
+.form-status:empty { display: none; }
+.form-submit {
+  align-self: flex-start;
+}
+.form-legal {
+  font-size: .82rem;
+  color: var(--c-text-muted);
+}
+/* ========================================================
+   HEADER OSCURO — alineado con logo metálico
+   ======================================================== */
+.site-header {
+  background: #1A1A1A;
+  color: #F5F5F5;
+  border-bottom: 1px solid #2A2A2A;
+}
+.site-header .logo { color: #F5F5F5; }
+.site-header .logo-text { color: #F5F5F5; }
+.site-header .logo-text strong { color: #FFFFFF; }
+/* El logo ahora es <img>, no <svg> inline */
+.site-header .logo-img {
+  display: block;
+  height: 40px;
+  width: auto;
+}
+@media (min-width: 640px) {
+  .site-header .logo-img { height: 48px; }
+}
+/* Nav links claros */
+.site-header .primary-nav a {
+  color: #E8E8E8;
+}
+.site-header .primary-nav a:hover,
+.site-header .primary-nav a:focus-visible {
+  color: #FFC107;
+}
+/* Botón "Contact" del header: outline claro → amarillo al hover */
+.site-header .primary-nav .btn-outline {
+  border-color: #3A3A3A;
+  color: #F5F5F5;
+  background: transparent;
+}
+.site-header .primary-nav .btn-outline:hover,
+.site-header .primary-nav .btn-outline:focus-visible {
+  background: #FFC107;
+  color: #1A1A1A;
+  border-color: #FFC107;
+}
+/* Hamburger: fondo transparente, icono blanco */
+.site-header .menu-toggle { background: transparent; border-color: transparent; color: #F5F5F5; }
+.site-header .menu-toggle:hover,
+.site-header .menu-toggle:focus-visible { background: rgba(255,255,255,0.08); }
+.site-header .menu-toggle .menu-bar { background: #F5F5F5; }
+/* Lang switch sobre oscuro */
+.site-header .lang-switch { border-color: #3A3A3A; }
+.site-header .lang-switch button {
+  color: #E8E8E8;
+  background: transparent;
+}
+.site-header .lang-switch button:hover { color: #FFC107; }
+.site-header .lang-switch button.is-active {
+  background: #FFC107;
+  color: #1A1A1A;
+}
+/* Foco visible sobre header oscuro */
+.site-header a:focus-visible,
+.site-header button:focus-visible {
+  outline: 2px solid #FFC107;
+  outline-offset: 3px;
+  box-shadow: none;
+}
+/* Panel móvil desplegado: fondo coherente (oscuro) */
+@media (max-width: 959px) {
+  .site-header .primary-nav.is-open {
+    background: #1A1A1A;
+    border-top: 1px solid #2A2A2A;
+  }
+}
+/* Footer negro + logo metálico */
+.site-footer {
+  background: #0D0D0D;
+  color: #B8B8B8;
+  border-top: 1px solid #2A2A2A;
+}
+.site-footer .footer-logo {
+  display: block;
+  height: 56px;
+  width: auto;
+  margin-bottom: var(--space-1);
+  opacity: .92;
+}
+.site-footer a { color: #E8E8E8; }
+.site-footer a:hover,
+.site-footer a:focus-visible { color: #FFC107; }
+/* ============================================================
+   MOBILE VANGUARD — overrides añadidos al final (idempotente)
+   Safe-area, tap targets 44px, touch-action, iOS input zoom,
+   hero 100dvh, scroll-padding con header sticky.
+   Se puede borrar entero sin afectar al resto del CSS.
+   ============================================================ */
+/* 1. Feedback táctil limpio (sin flash azul al tocar en iOS/Android) */
+a,
+button,
+.btn,
+.chip,
+.menu-toggle,
+.lang-switch button {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+/* 2. Safe-area iOS/notch: el header sticky respeta la barra de estado */
+.site-header {
+  padding-top: env(safe-area-inset-top, 0);
+  padding-left: env(safe-area-inset-left, 0);
+  padding-right: env(safe-area-inset-right, 0);
+}
+.site-footer {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  padding-left: env(safe-area-inset-left, 0);
+  padding-right: env(safe-area-inset-right, 0);
+}
+/* 3. Saltos desde anclas: que el header sticky no tape el título */
+html {
+  scroll-padding-top: calc(64px + env(safe-area-inset-top, 0));
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+/* 4. Inputs en iOS: forzar 16px para que NO haga auto-zoom al enfocar.
+      El !important es el único justificado: si algún selector gana
+      especificidad y baja a <16px, iOS rompe el layout con un zoom. */
+.form-field input,
+.form-field select,
+.form-field textarea {
+  font-size: 16px !important;
+  min-height: 44px;
+}
+/* 5. Hero: 100dvh real (fallback 100vh para navegadores viejos) */
+.hero {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+/* 6. En móvil (<640px): tap targets cómodos y legibles al pulgar */
+@media (max-width: 639px) {
+  /* Menú lateral: cada link con 44px de alto mínimo (Apple HIG / WCAG 2.5.5) */
+  .primary-nav a {
+    padding: .75rem 1rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  /* Botón hamburguesa: 44×44 táctil, sin tocar su diseño visual */
+  .menu-toggle {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .5rem;
+  }
+  /* Lang-switch: dos botones EN/ES con 44px de alto */
+  .lang-switch button {
+    min-height: 44px;
+    min-width: 44px;
+    padding: .5rem .75rem;
+  }
+  /* Botones principales: pulgar en movimiento */
+  .btn {
+    padding: .85rem 1.1rem;
+    font-size: 1rem;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* Chips de áreas: cómodos de tocar si en algún momento son links */
+  .chip {
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    padding: .45rem .85rem;
+  }
+  /* H1 con más aire para leer en 6.1" sin apretar */
+  .hero h1 {
+    max-width: 20ch;
+    line-height: 1.15;
+  }
+  /* CTAs del hero a todo el ancho: más conversion-friendly al pulgar */
+  .hero-cta {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+  }
+  .hero-cta .btn {
+    width: 100%;
+  }
+}
+/* ============================================================
+   Bloque legal — <details> desplegable
+   (datos del titular/responsable en legal.html y privacy.html)
+   ============================================================ */
+.legal-details {
+  margin: var(--space-2) 0 var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 8px;
+  color: var(--c-text);
+}
+.legal-details > summary {
+  /* Quitamos el triángulo por defecto solo cuando el navegador lo permite
+     (list-style en summary está soportado en todos los modernos salvo Safari<15) */
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  padding: var(--space-1) 0;
+  position: relative;
+  padding-left: 1.5rem;      /* espacio para la flecha custom */
+  transition: color 120ms linear;
+}
+/* En Safari antiguos quitamos el triángulo con ::-webkit-details-marker */
+.legal-details > summary::-webkit-details-marker { display: none; }
+/* Flecha custom (triángulo rectángulo pintado con border) */
+.legal-details > summary::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) rotate(0deg);
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid var(--c-text-muted);
+  transition: transform 180ms ease, border-left-color 120ms linear;
+}
+/* Al abrir, la flecha rota 90° */
+.legal-details[open] > summary::before {
+  transform: translateY(-50%) rotate(90deg);
+  border-left-color: var(--c-text);
+}
+/* Hover y foco visibles (accesibilidad) */
+.legal-details > summary:hover { color: var(--c-text); }
+.legal-details > summary:hover::before { border-left-color: var(--c-text); }
+.legal-details > summary:focus-visible {
+  outline: 2px solid var(--brand-yellow);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+/* Separación con el contenido desplegado */
+.legal-details > ul,
+.legal-details > ol {
+  margin: var(--space-2) 0 0;
+  padding-left: 1.5rem;
+}
+.legal-details > ul li,
+.legal-details > ol li {
+  margin-bottom: var(--space-1);
+}
+/* Respeto a usuarios con reduce-motion: sin transición de flecha */
+@media (prefers-reduced-motion: reduce) {
+  .legal-details > summary,
+  .legal-details > summary::before {
+    transition: none;
+  }
+}

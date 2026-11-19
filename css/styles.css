@@ -6,6 +6,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
 :root {
+  color-scheme: dark;
   /* Marca (acento metálico sobre carbón) */
   --brand-yellow: #C0C0C0;
   --brand-yellow-dark: #8C8C8C;
@@ -119,8 +120,8 @@ ul[role="list"], ol[role="list"] { list-style: none; padding: 0; }
 .menu-toggle {
   display: inline-flex; flex-direction: column; justify-content: center; gap: 4px;
   width: 44px; height: 44px;
-  background: var(--c-surface); border: 1px solid var(--c-border); border-radius: var(--radius-sm);
-  cursor: pointer; padding: 0 10px;
+  background: transparent; border: 1px solid transparent; border-radius: var(--radius-sm);
+  color: var(--c-text); cursor: pointer; padding: 0 10px;
 }
 .menu-bar { display: block; height: 2px; background: var(--c-text); border-radius: 1px; }
 .menu-toggle[aria-expanded="true"] .menu-bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
@@ -493,9 +494,11 @@ ul[role="list"], ol[role="list"] { list-style: none; padding: 0; }
   color: #1A1A1A;
   border-color: #FFC107;
 }
-/* Hamburger en blanco */
-.site-header .menu-toggle { color: #F5F5F5; }
-.site-header .menu-toggle .menu-bar { background: currentColor; }
+/* Hamburger: fondo transparente, icono blanco */
+.site-header .menu-toggle { background: transparent; border-color: transparent; color: #F5F5F5; }
+.site-header .menu-toggle:hover,
+.site-header .menu-toggle:focus-visible { background: rgba(255,255,255,0.08); }
+.site-header .menu-toggle .menu-bar { background: #F5F5F5; }
 /* Lang switch sobre oscuro */
 .site-header .lang-switch { border-color: #3A3A3A; }
 .site-header .lang-switch button {
@@ -709,3 +712,41 @@ html {
     transition: none;
   }
 }
+
+/* === Selector de idioma: botones en escritorio, select en móvil === */
+/* Por defecto (móvil primero): select visible, botones ocultos */
+.lang-switch { display: none; }
+.lang-switch-mobile {
+  display: inline-flex;
+  align-items: center;
+}
+.lang-switch-mobile select {
+  background: var(--c-bg-alt);
+  color: var(--c-text);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  padding: .35rem .5rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 36px;
+  max-width: 90px;
+}
+.lang-switch-mobile select:focus-visible {
+  outline: 2px solid #FFC107;
+  outline-offset: 2px;
+}
+.site-header .lang-switch-mobile select {
+  background: rgba(255,255,255,0.06);
+  color: #F5F5F5;
+  border-color: #3A3A3A;
+}
+/* Escritorio: 5 botones visibles, select oculto */
+@media (min-width: 960px) {
+  .lang-switch { display: inline-flex; }
+  .lang-switch-mobile { display: none; }
+}
+
+/* Idioma: <option> legibles en tema oscuro */
+.lang-switch-mobile select option { background-color: #1C1C1C; color: #F0F0F0; }
+.lang-switch-mobile select option:checked { background-color: #FFC107; color: #1A1A1A; font-weight: 700; }

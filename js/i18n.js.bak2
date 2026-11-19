@@ -1,0 +1,172 @@
+/* =========================================================
+   i18n.js — motor de traducción EN / ES
+   - EN por defecto
+   - Inyecta con textContent (nunca innerHTML)
+   - Soporta data-i18n (texto) y data-i18n-attr="attr:clave"
+   - Persiste en localStorage y sincroniza <html lang>
+   ========================================================= */
+const DICT = {
+  en: {
+    "skip": "Skip to content",
+    "nav.services": "Services",
+    "nav.areas": "Areas",
+    "nav.process": "How we work",
+    "nav.reviews": "Reviews",
+    "nav.contact": "Contact",
+    "hero.eyebrow": "Certified electrician · Orihuela Costa",
+    "hero.title": "Trusted electricians for your home in Orihuela Costa",
+    "hero.lead": "Authorised installer and official Boletín Eléctrico issuer. Fuse box replacements, 24/7 emergencies and smart-home checks for second homes — in English, from neighbours who live here.",
+    "hero.ctaWhatsapp": "Chat on WhatsApp",
+    "hero.ctaQuote": "Get a free quote",
+    "certs.boletin": "Official Boletín Eléctrico",
+    "certs.autonomo": "Registered installer (Comunitat Valenciana)",
+    "certs.rc": "Liability insurance included",
+    "services.title": "What we do",
+    "services.lead": "Practical electrical work for owners who aren't always here. Every job ends with a written report and photos you can send to your insurer.",
+    "services.1.title": "Fuse box replacement",
+    "services.1.body": "Old 80s/90s boards upgraded to current regulations. Faster trips, real RCD protection, and paperwork your buyer's lawyer will love.",
+    "services.2.title": "Safety check & report",
+    "services.2.body": "Full electrical inspection with a photo report for your insurer, gestor or future buyer. Fixed price, no surprises.",
+    "services.3.title": "Second-home monitoring",
+    "services.3.body": "Smart plugs, leak sensors and Alexa/Google-home control so you can see from the UK if the RCD tripped — and we go check for you.",
+    "services.4.title": "EV charger installation",
+    "services.4.body": "Type 2 chargers for villas and garages, installed to Spanish regulation. Winter-ready for your rented car.",
+    "services.5.title": "UK-style sockets & earthing",
+    "services.5.body": "Switched sockets, kettles, earthing checks for British appliances. Same voltage, but we make it feel like home.",
+    "services.6.title": "24/7 emergencies",
+    "services.6.body": "Pool alarm tripping? Fridge off? We go, we check, we send photos and a written diagnosis. Call or WhatsApp any hour.",
+    "areas.title": "Where we work",
+    "areas.lead": "Local to the Orihuela Costa urbanisations. If you're a neighbour, we're 10–15 minutes away.",
+    "areas.1": "La Zenia",
+    "areas.2": "Cabo Roig",
+    "areas.3": "Playa Flamenca",
+    "areas.4": "Punta Prima",
+    "areas.5": "Villamartín",
+    "areas.6": "Campoamor",
+    "areas.7": "Dehesa de Campoamor",
+    "areas.8": "Las Ramblas",
+    "areas.support": "Houses, apartments and second homes across the coast — occupied year-round or just for the summer. Same-day quotes for anything within 15 minutes of us.",
+    "process.title": "How we work",
+    "process.lead": "No hidden fees. Fixed quotes in writing before we touch a cable.",
+    "process.1.title": "WhatsApp us",
+    "process.1.body": "Send a photo and a description. We reply the same day.",
+    "process.2.title": "Written quote",
+    "process.2.body": "Fixed price by email. You approve before we start.",
+    "process.3.title": "We fix, we report",
+    "process.3.body": "We finish, send photos and a written report. Nothing else to pay.",
+    "reviews.title": "What neighbours say",
+    "cta.title": "Ready for a proper electrician?",
+    "cta.lead": "Free quotes, English spoken, Spanish regulation respected.",
+    "cta.whatsapp": "Chat on WhatsApp",
+    "footer.legal": "Orihuela Costa · Comunitat Valenciana · Spain"
+  },
+  es: {
+    "skip": "Saltar al contenido",
+    "nav.services": "Servicios",
+    "nav.areas": "Zonas",
+    "nav.process": "Cómo trabajamos",
+    "nav.reviews": "Opiniones",
+    "nav.contact": "Contacto",
+    "hero.eyebrow": "Electricista certificado · Orihuela Costa",
+    "hero.title": "Electricistas de confianza para tu casa en Orihuela Costa",
+    "hero.lead": "Instalador autorizado y emisor oficial del Boletín Eléctrico. Sustitución de cuadros, urgencias 24/7 y revisión de domótica para segundas residencias — en tu idioma, por vecinos que viven aquí.",
+    "hero.ctaWhatsapp": "Hablar por WhatsApp",
+    "hero.ctaQuote": "Presupuesto gratis",
+    "certs.boletin": "Boletín Eléctrico oficial",
+    "certs.autonomo": "Instalador autorizado (Comunitat Valenciana)",
+    "certs.rc": "Seguro de responsabilidad civil incluido",
+    "services.title": "Qué hacemos",
+    "services.lead": "Trabajo eléctrico práctico para propietarios que no siempre están. Cada trabajo termina con informe escrito y fotos para tu seguro.",
+    "services.1.title": "Cambio de cuadro eléctrico",
+    "services.1.body": "Cuadros de los 80/90 actualizados a normativa vigente. Diferenciales que no saltan por gusto y documentación en regla.",
+    "services.2.title": "Revisión de seguridad + informe",
+    "services.2.body": "Inspección eléctrica completa con informe fotográfico para tu seguro, gestoría o futuro comprador. Precio cerrado.",
+    "services.3.title": "Vigilancia para segundas residencias",
+    "services.3.body": "Enchufes inteligentes, sensores de fuga y control Alexa/Google-home para ver desde UK si ha saltado el diferencial — y vamos a comprobarlo.",
+    "services.4.title": "Instalación de cargador VE",
+    "services.4.body": "Cargadores Tipo 2 para villas y garajes, instalados según normativa española. Listo para el invierno.",
+    "services.5.title": "Enchufes estilo UK y tomas de tierra",
+    "services.5.body": "Enchufes con interruptor, hervidores y revisión de tierra para aparatos británicos. Mismo voltaje, sensación de casa.",
+    "services.6.title": "Urgencias 24/7",
+    "services.6.body": "¿Salta la alarma de piscina? ¿La nevera no va? Vamos, revisamos y te enviamos fotos y diagnóstico escrito. WhatsApp a cualquier hora.",
+    "areas.title": "Dónde trabajamos",
+    "areas.lead": "Cubrimos las urbanizaciones de la costa de Orihuela. Si vives cerca, estamos a 10–15 minutos.",
+    "areas.1": "La Zenia",
+    "areas.2": "Cabo Roig",
+    "areas.3": "Playa Flamenca",
+    "areas.4": "Punta Prima",
+    "areas.5": "Villamartín",
+    "areas.6": "Campoamor",
+    "areas.7": "Dehesa de Campoamor",
+    "areas.8": "Las Ramblas",
+    "areas.support": "Casas, apartamentos y segundas residencias en toda la costa — habitadas todo el año o solo en verano. Presupuesto el mismo día para cualquier aviso a menos de 15 minutos.",
+    "process.title": "Cómo trabajamos",
+    "process.lead": "Sin cargos ocultos. Presupuesto cerrado por escrito antes de tocar un cable.",
+    "process.1.title": "Escríbenos por WhatsApp",
+    "process.1.body": "Mándanos una foto y una descripción. Respondemos el mismo día.",
+    "process.2.title": "Presupuesto por escrito",
+    "process.2.body": "Precio cerrado por email. Apruebas antes de empezar.",
+    "process.3.title": "Arreglamos e informamos",
+    "process.3.body": "Terminamos, enviamos fotos e informe escrito. No pagas nada más.",
+    "reviews.title": "Lo que dicen los vecinos",
+    "cta.title": "¿Listo para un electricista de verdad?",
+    "cta.lead": "Presupuestos gratis, hablamos inglés, cumplimos normativa española.",
+    "cta.whatsapp": "Hablar por WhatsApp",
+    "footer.legal": "Orihuela Costa · Comunitat Valenciana · España"
+  }
+};
+const STORAGE_KEY = "lang";
+const SUPPORTED = Object.keys(DICT);
+/* Resolver idioma inicial: localStorage → navegador → EN */
+function resolveInitialLang() {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (stored && SUPPORTED.includes(stored)) return stored;
+  const nav = (navigator.language || "en").slice(0, 2).toLowerCase();
+  return SUPPORTED.includes(nav) ? nav : "en";
+}
+/* Aplicar diccionario al DOM */
+function applyLang(lang) {
+  const dict = DICT[lang] || DICT.en;
+  // Toggle de botones de idioma
+  document.querySelectorAll("[data-lang]").forEach((btn) => {
+    const active = btn.dataset.lang === lang;
+    btn.setAttribute("aria-pressed", active ? "true" : "false");
+    btn.classList.toggle("is-active", active);
+  });
+  // Texto (textContent — sin innerHTML)
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.dataset.i18n;
+    const value = dict[key];
+    if (value != null) el.textContent = value;
+  });
+  // Atributos: data-i18n-attr="aria-label:contact.form.name,placeholder:..."
+  document.querySelectorAll("[data-i18n-attr]").forEach((el) => {
+    el.dataset.i18nAttr.split(",").forEach((pair) => {
+      const [attr, key] = pair.split(":").map((s) => s.trim());
+      if (!attr || !key) return;
+      const value = dict[key];
+      if (value != null) el.setAttribute(attr, value);
+    });
+  });
+  // Sincronizar <html lang> y persistir
+  document.documentElement.lang = lang;
+  localStorage.setItem(STORAGE_KEY, lang);
+  // Evento por si otro módulo (forms, tracking) quiere reaccionar
+  document.dispatchEvent(new CustomEvent("langchange", { detail: { lang } }));
+}
+/* Inicialización */
+function initI18n() {
+  const lang = resolveInitialLang();
+  applyLang(lang);
+  document.querySelectorAll("[data-lang]").forEach((btn) => {
+    btn.addEventListener("click", () => applyLang(btn.dataset.lang));
+  });
+}
+// defer garantiza DOMContentLoaded; aún así por seguridad:
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initI18n, { once: true });
+} else {
+  initI18n();
+}
+// Exponer para debugging en consola: window.i18n.apply("es")
+window.i18n = { apply: applyLang, dict: DICT };

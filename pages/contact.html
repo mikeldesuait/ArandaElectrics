@@ -28,8 +28,21 @@
           <li><a href="contact.html" class="btn btn-outline" data-i18n="nav.contact">Contact</a></li>
         </ul>
         <div class="lang-switch" role="group" aria-label="Language">
-          <button type="button" data-lang="en" class="is-active" aria-pressed="true">EN</button>
           <button type="button" data-lang="es" aria-pressed="false">ES</button>
+          <button type="button" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="de" aria-pressed="false">DE</button>
+          <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+          <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+        </div>
+        <div class="lang-switch-mobile">
+          <label for="lang-select" class="visually-hidden" data-i18n="skip">Language</label>
+          <select id="lang-select" data-lang-select aria-label="Language">
+            <option value="es">ES — Español</option>
+            <option value="en">EN — English</option>
+            <option value="de">DE — Deutsch</option>
+            <option value="fr">FR — Français</option>
+            <option value="ru">RU — Русский</option>
+          </select>
         </div>
       </nav>
     </div>
