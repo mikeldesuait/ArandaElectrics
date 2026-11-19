@@ -750,3 +750,32 @@ html {
 /* Idioma: <option> legibles en tema oscuro */
 .lang-switch-mobile select option { background-color: #1C1C1C; color: #F0F0F0; }
 .lang-switch-mobile select option:checked { background-color: #FFC107; color: #1A1A1A; font-weight: 700; }
+/* ============================================================
+   FIX: menú móvil en portrait — el panel .primary-nav debe
+   ocupar fila completa debajo del logo, no comprimirse como
+   columna entre logo y hamburguesa.
+   ============================================================ */
+@media (max-width: 959px) {
+  /* El contenedor del header permite que el nav salte de línea */
+  .site-header .container {
+    flex-wrap: wrap;
+  }
+  /* Panel cerrado: no ocupa espacio */
+  .site-header .primary-nav {
+    flex-basis: 100%;
+    width: 100%;
+    order: 3;
+  }
+  /* Panel abierto: ancho completo, fondo oscuro y padding cómodo */
+  .site-header .primary-nav.is-open {
+    background: #1A1A1A;
+    border-top: 1px solid #2A2A2A;
+    padding: .75rem 0;
+    max-height: calc(100dvh - 64px);
+    overflow-y: auto;
+  }
+  /* Links con separación legible */
+  .site-header .primary-nav.is-open ul {
+    gap: .25rem;
+  }
+}
