@@ -750,66 +750,203 @@ html {
 /* Idioma: <option> legibles en tema oscuro */
 .lang-switch-mobile select option { background-color: #1C1C1C; color: #F0F0F0; }
 .lang-switch-mobile select option:checked { background-color: #FFC107; color: #1A1A1A; font-weight: 700; }
+
+
 /* ============================================================
-   FIX: menú móvil en portrait — el panel .primary-nav debe
-   ocupar fila completa debajo del logo, no comprimirse como
-   columna entre logo y hamburguesa.
+   MENÚ MÓVIL — definitivo con position:absolute
+   El header es position:sticky → si el nav crece dentro,
+   queda clippeado por el sticky. Solución: posicionar el nav
+   como capa absoluta DEBAJO del header. Así no depende del
+   overflow del sticky ni del flex del header-inner.
    ============================================================ */
 @media (max-width: 959px) {
-  /* El contenedor del header permite que el nav salte de línea */
-  .site-header .container {
-    flex-wrap: wrap;
+  /* Ancla de posicionamiento: el .header-inner del header sticky */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
   }
-  /* Panel cerrado: no ocupa espacio */
-  .site-header .primary-nav {
-    flex-basis: 100%;
-    width: 100%;
-    order: 3;
-  }
-  /* Panel abierto: ancho completo, fondo oscuro y padding cómodo */
-  .site-header .primary-nav.is-open {
-    background: #1A1A1A;
-    border-top: 1px solid #2A2A2A;
-    padding: .75rem 0;
-    max-height: calc(100dvh - 64px);
-    overflow-y: auto;
-  }
-  /* Links con separación legible */
-  .site-header .primary-nav.is-open ul {
-    gap: .25rem;
-  }
-}
-/* ============================================================
-   FIX v2: menú móvil en portrait.
-   - Corrige el selector (era .header-inner, no .container).
-   - Oculta el lang-switch escritorio dentro del panel (usa
-     el .lang-switch-mobile con <select>, ya existe).
-   - Fuerza al nav a ocupar fila completa debajo del header.
-   ============================================================ */
-@media (max-width: 959px) {
   .site-header .header-inner {
-    flex-wrap: wrap;
-    row-gap: .5rem;
+    position: relative;
+    flex-wrap: nowrap;
   }
+  /* Botón hamburguesa: siempre visible arriba a la derecha */
+  .site-header .menu-toggle {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: .5rem;
+    margin-left: auto;
+    background: transparent;
+    border: 0;
+    color: #F5F5F5;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .site-header .menu-toggle .menu-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #F5F5F5;
+    border-radius: 2px;
+    margin: 3px 0;
+    transition: transform .2s, opacity .2s;
+  }
+  .site-header .menu-toggle[aria-expanded="true"] .menu-bar:nth-child(1) {
+    transform: translateY(5px) rotate(45deg);
+  }
+  .site-header .menu-toggle[aria-expanded="true"] .menu-bar:nth-child(2) {
+    opacity: 0;
+  }
+  .site-header .menu-toggle[aria-expanded="true"] .menu-bar:nth-child(3) {
+    transform: translateY(-5px) rotate(-45deg);
+  }
+  /* CERRADO: nav fuera de pantalla, invisible, no interactuable */
   .site-header .primary-nav {
-    flex-basis: 100%;
-    width: 100%;
-    order: 3;
-    margin: 0;
-  }
-  /* Panel abierto: coherente y con scroll si hace falta */
-  .site-header .primary-nav.is-open {
-    background: #1A1A1A;
-    border-top: 1px solid #2A2A2A;
-    padding: .75rem 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    margin: 0 !important;
+    padding: .5rem 0 .75rem !important;
+    background: #1A1A1A !important;
+    border-top: 3px solid #FFC107 !important;
+    border-bottom: 1px solid #333 !important;
+    border-radius: 0 0 16px 16px !important;
+    box-shadow: 0 16px 32px -8px rgba(0,0,0,.7) !important;
     max-height: calc(100dvh - 64px);
     overflow-y: auto;
+    z-index: 60;
+    box-sizing: border-box;
   }
-  .site-header .primary-nav.is-open ul {
-    gap: .25rem;
+  /* ABIERTO: se muestra el panel absoluto */
+  .site-header .primary-nav.is-open {
+    display: flex !important;
   }
-  /* En móvil: ocultar el lang-switch de botones (el <select> basta) */
-  .site-header .primary-nav .lang-switch {
-    display: none;
+  /* Lista vertical a ancho completo */
+  .site-header .primary-nav > ul {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    align-items: stretch !important;
+  }
+  .site-header .primary-nav > ul > li {
+    width: 100% !important;
+    border-top: 1px solid rgba(255,255,255,.07) !important;
+  }
+  .site-header .primary-nav > ul > li:first-child {
+    border-top: 0 !important;
+  }
+  /* Links: fila grande con chevron > */
+  .site-header .primary-nav > ul > li > a {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    width: 100% !important;
+    padding: 1rem 1.25rem !important;
+    min-height: 52px;
+    font-size: 1.0625rem !important;
+    font-weight: 500;
+    letter-spacing: .01em;
+    color: #F5F5F5 !important;
+    text-decoration: none !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+  }
+  .site-header .primary-nav > ul > li > a:not(.btn)::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #666;
+    border-bottom: 2px solid #666;
+    transform: rotate(-45deg);
+    margin-left: 1rem;
+    flex-shrink: 0;
+  }
+  .site-header .primary-nav > ul > li > a:not(.btn):hover,
+  .site-header .primary-nav > ul > li > a:not(.btn):focus-visible {
+    background: rgba(255,193,7,.08) !important;
+    color: #FFC107 !important;
+  }
+  .site-header .primary-nav > ul > li > a:not(.btn):hover::after,
+  .site-header .primary-nav > ul > li > a:not(.btn):focus-visible::after {
+    border-right-color: #FFC107;
+    border-bottom-color: #FFC107;
+  }
+  /* Botón Contact: CTA amarillo sólido */
+  .site-header .primary-nav > ul > li > .btn.btn-outline {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: .75rem 1.25rem 0 !important;
+    padding: .875rem 1.25rem !important;
+    width: calc(100% - 2.5rem) !important;
+    min-height: 48px;
+    background: #FFC107 !important;
+    color: #1A1A1A !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+  }
+  .site-header .primary-nav > ul > li > .btn.btn-outline::after {
+    display: none !important;
+  }
+  /* Lang-switch de botones: oculto en móvil */
+  .site-header .primary-nav > .lang-switch {
+    display: none !important;
+  }
+  /* Lang-switch móvil: select visible al fondo del panel */
+  .site-header .primary-nav .lang-switch-mobile {
+    display: block !important;
+    /* CLAVE: ocupa TODO el ancho del panel, sin márgenes que desplacen
+       el <select> hacia la derecha. Así el popup nativo se abre alineado
+       con el borde IZQUIERDO del panel y cabe en pantalla. */
+    margin: 1rem 0 0 !important;
+    padding: .875rem 1.25rem 0 !important;
+    border-top: 1px solid rgba(255,255,255,.07) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden;
+  }
+  .site-header .primary-nav .lang-switch-mobile select {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 44px;
+    font-size: .9375rem;
+    /* Padding simétrico: sin asimetría que empuje el popup */
+    padding: .5rem 2rem .5rem .75rem;
+    box-sizing: border-box !important;
+    text-overflow: ellipsis;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* Flecha custom para Chrome/Edge/Firefox desktop.
+       En móvil el navegador renderiza su propio picker; esto es
+       sólo cosmético en navegadores que sí respetan appearance:none. */
+    background-image:
+      linear-gradient(45deg, transparent 50%, #FFC107 50%),
+      linear-gradient(135deg, #FFC107 50%, transparent 50%);
+    background-position:
+      calc(100% - 18px) 50%,
+      calc(100% - 13px) 50%;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+  }
+  /* El panel entero: nunca permitir desborde horizontal */
+  .site-header .primary-nav.is-open {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
   }
 }

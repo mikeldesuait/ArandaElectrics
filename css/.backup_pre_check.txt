@@ -1,0 +1,8 @@
+total 92
+drwxrwxr-x 2 miguel miguel  4096 nov 20 01:32 .
+drwxrwxr-x 8 miguel miguel  4096 nov 19 00:27 ..
+-rw-rw-r-- 1 miguel miguel     0 nov 20 01:32 .backup_pre_check.txt
+-rw-rw-r-- 1 miguel miguel 29890 nov 20 01:31 styles.css
+-rw-rw-r-- 1 miguel miguel 22098 nov 19 22:45 styles.css.bak
+-rw-rw-r-- 1 miguel miguel 22295 nov 19 22:50 styles.css.bak2
+-rw-rw-r-- 1 miguel miguel    64 nov 20 00:15 styles.css.cache-check.txt
